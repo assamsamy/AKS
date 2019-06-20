@@ -1,4 +1,6 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 
 
@@ -13,7 +15,7 @@ public class ConnectionSQL {
 
         try {
             Class.forName(myDriver);
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/aaskeybd?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/aaskeydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
 
         } catch (Exception e) {
             e.printStackTrace();
