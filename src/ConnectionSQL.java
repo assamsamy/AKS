@@ -1,7 +1,6 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public class ConnectionSQL {
@@ -40,5 +39,31 @@ public class ConnectionSQL {
 
 
     }
+
+    public String insertHCEfirsttime(String matricule,String code){
+        String sql="SELECT ID_pers,validity FROM personnel WHERE "+code+" = code_andro_app && ID_pers = "+matricule;
+
+        PreparedStatement prepStmt = null;
+
+
+
+        try {
+
+            prepStmt = conn.prepareStatement(sql);
+
+
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                String time = String.valueOf(LocalDate.now());
+                String code_sur_tel = rs.getString("ID_pers")+""+time+rs.getString("validity");
+
+               return code_sur_tel;
+
+            }
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+    return "false profil";}
 
 }

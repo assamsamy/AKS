@@ -13,6 +13,8 @@ public class Message {
     public final static int MESSAGE_ACCESS_REJECTED = 6;
     public final static int MESSAGE_ERROR = 7;
     public final static int MESSAGE_REFRESH = 8;
+    public final static int MESSAGE_HCE = 9;
+    public final static int MESSAGE_WRITE_HCE = 10;
 
 
 

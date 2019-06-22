@@ -6,6 +6,7 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 @ServerEndpoint(
         value = "/ws",
@@ -43,7 +44,10 @@ public class MainWs {
     // {"type":3,"content":"0xFF","from":"client1","to":"scanner1"}
 
     @OnMessage
-    public void handleMessage(Message m, Session session) throws Exception {
+    public void handleMessage(Message m, Session session)  {
+        try {
+
+
 
         // Logiciel
         if(m.getType() == Message.MESSAGE_PROFIL_TO_WRITE){
@@ -59,7 +63,7 @@ public class MainWs {
             // verification avec la bd
             // todo verification
 
-            rqt.insertAcess(m.getUid(), 1, 1);
+            rqt.insertAcess("66 4F FB 1F", 1, 1);
 
 
 
@@ -82,6 +86,14 @@ public class MainWs {
 //            }
 
         }
+        if(m.getType()==Message.MESSAGE_HCE){
+            //recuperation du code et matricule
+            String temp[]=m.getContent().split(Pattern.quote("+"));
+
+            String code_app=rqt.insertHCEfirsttime(temp[0],temp[1]);
+            session.getBasicRemote().sendText(new MessageEncoder().encode(new Message(code_app,Message.MESSAGE_WRITE_HCE,"Server","ESP8266")));
+
+        }
         if(m.getType() == Message.MESSAGE_BLANK_CARD){
             if(profil_container != null ) {
                 //m.getContent();
@@ -98,6 +110,9 @@ public class MainWs {
             }
             else
                 session.getBasicRemote().sendText("Server : "+ Message.MESSAGE_ACCESS_REJECTED);
+        }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
 
