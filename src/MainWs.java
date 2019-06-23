@@ -86,11 +86,11 @@ public class MainWs {
 //            }
 
         }
-        if(m.getType()==Message.MESSAGE_HCE){
+            if (m.getType() == Message.MESSAGE_HCE) {
             //recuperation du code et matricule
             String temp[]=m.getContent().split(Pattern.quote("+"));
 
-            String code_app=rqt.insertHCEfirsttime(temp[0],temp[1]);
+                String code_app = rqt.insertHCEfirsttime(temp[ 0 ], temp[ 1 ]);
             session.getBasicRemote().sendText(new MessageEncoder().encode(new Message(code_app,Message.MESSAGE_WRITE_HCE,"Server","ESP8266")));
 
         }

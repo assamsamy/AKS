@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 
 public class ConnectionSQL {
@@ -78,16 +77,17 @@ public class ConnectionSQL {
     }
 
     public String insertHCEfirsttime(String matricule,String code){
-        String sql="SELECT ID_pers,validity FROM personnel WHERE "+code+" = code_andro_app && ID_pers = "+matricule;
+        String sql = "SELECT ID_pers,validity FROM personnel WHERE code_andro_app = ? && ID_Pers = ?";
 
-        PreparedStatement prepStmt = null;
+
 
 
 
         try {
 
-            prepStmt = conn.prepareStatement(sql);
-
+            PreparedStatement prepStmt = conn.prepareStatement(sql);
+            prepStmt.setString(1, code);
+            prepStmt.setString(2, matricule);
 
             ResultSet rs = prepStmt.executeQuery();
             while (rs.next()) {
