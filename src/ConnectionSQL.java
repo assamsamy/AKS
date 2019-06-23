@@ -21,6 +21,43 @@ public class ConnectionSQL {
         }
     }
 
+
+    public  String generateCode_update(String matricule, int validity){
+        LocalDate dt;
+        dt =LocalDate.now();
+        return matricule+dt.toString()+getvalid(matricule);
+
+    }
+    public  int getvalid(String matricule){
+        String sql="SELECT validity FROM personnel WHERE  ID_pers = ?";
+
+        PreparedStatement prepStmt = null;
+
+
+
+
+        try {
+            prepStmt = conn.prepareStatement(sql);
+            prepStmt.setString(1, matricule);
+
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                 return rs.getInt("validity");
+            }
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        return -1;
+    }
+
+
+    public int get_last_content(String cont){
+        char  p =cont.charAt(cont.length()-1);
+        return Integer.valueOf(p);
+    }
+
     public void insertAcess(String ID_carte, int ScannerID, int validity){
         String sql="INSERT INTO acces(ID_carte, ID_scanner, acces_validity) VALUES (?, ?, ?)";
 

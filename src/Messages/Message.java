@@ -37,6 +37,25 @@ public class Message {
     private String card_type;
     @Nullable
     private String uid;
+    private int validity;
+
+    public Message(int type, String content, String from, String to, String card_type, String uid, int validity) {
+        this.type = type;
+        this.content = content;
+        this.from = from;
+        this.to = to;
+        this.card_type = card_type;
+        this.uid = uid;
+        this.validity = validity;
+    }
+
+    public int getValidity() {
+        return validity;
+    }
+
+    public void setValidity(int validity) {
+        this.validity = validity;
+    }
 
     public Message(String content, int type, String from, String to){
         setContent(content);

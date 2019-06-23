@@ -63,7 +63,7 @@ public class MainWs {
             // verification avec la bd
             // todo verification
 
-            rqt.insertAcess("66 4F FB 1F", 1, 1);
+            rqt.insertAcess(m.getUid(), 1,rqt.get_last_content(m.getContent()));
 
 
 
@@ -76,7 +76,7 @@ public class MainWs {
 
 
             //int type, String content, String from, String to, String card_type, String uid
-            session.getBasicRemote().sendText(new MessageEncoder().encode(new Message(Message.MESSAGE_ACCESS_ALLOWED, "update_code","server", "ESP8266-01", m.getCard_type(), m.getUid() )));
+            session.getBasicRemote().sendText(new MessageEncoder().encode(new Message(Message.MESSAGE_ACCESS_ALLOWED, rqt.generateCode_update(m.getContent(),m.getValidity()),"server", "ESP8266-01", m.getCard_type(), m.getUid() )));
         }
 
         if (m.getType() == Message.MESSAGE_SUCESS_WRITE_CARD) {
