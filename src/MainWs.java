@@ -63,6 +63,7 @@ public class MainWs {
             // verification avec la bd
             // todo verification
 
+            if(rqt.searchProfil(m.getContent())){
             rqt.insertAcess(m.getUid(), 1,rqt.get_last_content(m.getContent()));
 
 
@@ -76,9 +77,11 @@ public class MainWs {
 
 
             //int type, String content, String from, String to, String card_type, String uid
-            session.getBasicRemote().sendText(new MessageEncoder().encode(new Message(Message.MESSAGE_ACCESS_ALLOWED, rqt.generateCode_update(m.getContent(),m.getValidity()),"server", "ESP8266-01", m.getCard_type(), m.getUid() )));
-        }
+            session.getBasicRemote().sendText(new MessageEncoder().encode(new Message(Message.MESSAGE_ACCESS_ALLOWED, rqt.generateCode_update(m.getUid(),m.getValidity()),"server", "ESP8266-01", m.getCard_type(), m.getUid() )));
 
+            }
+            else session.getBasicRemote().sendText((new MessageEncoder().encode((new Message(Message.MESSAGE_ACCESS_REJECTED,null,null,null,null,null)))));
+        }
         if (m.getType() == Message.MESSAGE_SUCESS_WRITE_CARD) {
 //            for (Session s : logiciels) {
 //                s.getBasicRemote().sendText(new MessageEncoder().encode(new Message(profil_container, Message.MESSAGE_SUCESS_WRITE_CARD, "server", "asadmin")));

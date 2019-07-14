@@ -39,7 +39,7 @@ public class Message {
     private String uid;
     private int validity;
 
-    public Message(int type, String content, String from, String to, String card_type, String uid, int validity) {
+    public Message(int type,  String from, String to, String card_type, String uid, int validity) {
         this.type = type;
         this.content = content;
         this.from = from;
@@ -48,6 +48,8 @@ public class Message {
         this.uid = uid;
         this.validity = validity;
     }
+
+
 
     public int getValidity() {
         return validity;
@@ -64,7 +66,7 @@ public class Message {
         setTo(to);
     }
 
-    public Message(int type, String content, String from, String to, String card_type, String uid) {
+    public Message(int type, String uid, String card_type, String content, String from, String to) {
         this.type = type;
         this.content = content;
         this.from = from;

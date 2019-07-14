@@ -67,7 +67,7 @@ public class MessageEncoder implements Encoder.Text<Message>{
 
         return convertor.toJson(message);
     }
-    
+
 
 
     @Override

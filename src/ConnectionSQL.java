@@ -22,9 +22,10 @@ public class ConnectionSQL {
 
 
     public  String generateCode_update(String matricule, int validity){
-        LocalDate dt;
-        dt =LocalDate.now();
-        return matricule+dt.toString()+getvalid(matricule);
+
+        String udpdate_code = matricule+new Timestamp(System.currentTimeMillis()).toString()+getvalid(matricule);
+        updateCodeCurr(matricule, udpdate_code);
+        return udpdate_code;
 
     }
     public  int getvalid(String matricule){
@@ -75,6 +76,20 @@ public class ConnectionSQL {
 
 
     }
+    public void updateCodeCurr(String matricule, String s){
+        String rqt="UPDATE personnel SET code_curr=  ? where ID_carte = ?";
+        PreparedStatement prepStmt = null;
+        try {
+            prepStmt = conn.prepareStatement(rqt);
+            prepStmt.setString(1,s );
+            prepStmt.setString(2,matricule);
+
+            prepStmt.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
     public String insertHCEfirsttime(String matricule,String code){
         String sql = "SELECT ID_pers,validity FROM personnel WHERE code_andro_app = ? && ID_Pers = ?";
@@ -103,4 +118,26 @@ public class ConnectionSQL {
         }
     return "false profil";}
 
+
+    public boolean searchProfil( String content) {
+        String sql="SELECT * FROM personnel where code_curr=?";
+        try {
+
+            PreparedStatement prepStmt = conn.prepareStatement(sql);
+            prepStmt.setString(1, content);
+
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()){
+                return true;
+            }
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+
+        }
+        finally {
+            return false;
+        }
+
+    }
 }
